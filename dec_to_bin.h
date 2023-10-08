@@ -6,7 +6,7 @@
 std::string DecToBin(int value)
 {
     int bit_count = sizeof(value) * BITS_IN_BYTE;
-   
+
     std::string str;
     int digid_index = 0;
     for (int i = bit_count - 1; i >= 0; --i)
