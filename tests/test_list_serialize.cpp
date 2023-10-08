@@ -3,6 +3,18 @@
 
 BOOST_AUTO_TEST_CASE(list_serialize) 
 {
-    // Your test code here
-    BOOST_CHECK(true);
+    const std::string FIRST = "First string";
+    const std::string SECOND = "Second string";
+    const std::string THIRD = "Third string";
+
+
+
+    List list;
+    list.Append(FIRST);
+    list.Append(SECOND);
+    list.Append(THIRD);
+
+    BOOST_CHECK_EQUAL(list.Head()->data, FIRST);
+    BOOST_CHECK_EQUAL(list.Head()->next->data, SECOND);
+    BOOST_CHECK_EQUAL(list.Tail()->data, THIRD);
 }

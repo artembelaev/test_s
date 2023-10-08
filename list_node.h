@@ -18,13 +18,23 @@ public:
 		Clear();
 	}
 
+	ListNode * Head() const
+	{
+		return head;
+	}
+
+	ListNode * Tail() const
+	{
+		return tail;
+	}
+
 	void Clear()
 	{
 		ListNode * node = head;
 		while (node != nullptr)
 		{
-			node = node->next;
 			ListNode * del = node;
+			node = node->next;
 			delete del;
 		}
 
@@ -33,9 +43,12 @@ public:
 		tail = nullptr;
 	}
 
-	ListNode * Append(const std::string & _data, ListNode * _rand = nullptr)
+	ListNode * Append(const std::string & data, ListNode * rand = nullptr)
 	{
-		auto node = new ListNode{ prev = tail, _rand = rand, data = _data };
+		auto node = new ListNode;
+		node->data = data;
+		node->rand = rand;
+		node->prev = tail;
 
 		if (tail != nullptr)
 			tail->next = node;
