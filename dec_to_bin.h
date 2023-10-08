@@ -5,11 +5,11 @@
 
 std::string DecToBin(int value)
 {
-    int bitCount = sizeof(value) * BITS_IN_BYTE;
+    int bit_count = sizeof(value) * BITS_IN_BYTE;
    
     std::string str;
-    int digidIndex = 0;
-    for (int i = bitCount - 1; i >= 0; --i)
+    int digid_index = 0;
+    for (int i = bit_count - 1; i >= 0; --i)
     {
         int bit = (value >> i) & 1;
 
@@ -18,8 +18,8 @@ std::string DecToBin(int value)
 
         if (str.size() > 0)
         {
-            str[digidIndex] = bit == 1 ? '1' : '0';
-            ++digidIndex;
+            str[digid_index] = bit == 1 ? '1' : '0';
+            ++digid_index;
         }
     }
 
