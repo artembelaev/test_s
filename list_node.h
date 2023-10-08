@@ -13,7 +13,41 @@ struct ListNode
 class List 
 {
 public:
+	~List()
+	{
+		Clear();
+	}
 
+	void Clear()
+	{
+		ListNode * node = head;
+		while (node != nullptr)
+		{
+			node = node->next;
+			ListNode * del = node;
+			delete del;
+		}
+
+		count = 0;
+		head = nullptr;
+		tail = nullptr;
+	}
+
+	ListNode * Append(const std::string & _data, ListNode * _rand = nullptr)
+	{
+		auto node = new ListNode{ prev = tail, _rand = rand, data = _data };
+
+		if (tail != nullptr)
+			tail->next = node;
+
+		if (head == nullptr)
+			head = node;
+
+		tail = node;
+		++count;
+		return node;
+	}
+	
 	void Serialize(FILE * file) // сохранение списка в файл, файл открыт с помощью `fopen(path, "wb")`
 	{
 
