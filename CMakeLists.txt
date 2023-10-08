@@ -15,7 +15,7 @@ add_executable (test_saber
 "tests/initTests.cpp"
 "tests/test_dec_to_bin.cpp" 
 "tests/test_remove_dups.cpp" 
-"tests/test_list_serialize.cpp" "dec_to_bin.h"  "remove_dups.h")
+"tests/test_list_serialize.cpp" "dec_to_bin.h"  "remove_dups.h" "list_node.h")
 
 # include
 
