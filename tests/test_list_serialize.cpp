@@ -7,9 +7,12 @@ const std::string THIRD = "Third string";
 
 void Fill(List & list)
 {
-    list.Append(FIRST);
-    list.Append(SECOND);
-    list.Append(THIRD);
+    auto first = list.Append(FIRST);
+    auto second = list.Append(SECOND);
+    auto third = list.Append(THIRD);
+
+    first->rand = third;
+    third->rand = first;
 }
 
 BOOST_AUTO_TEST_CASE(list_fill)
@@ -23,7 +26,10 @@ BOOST_AUTO_TEST_CASE(list_fill)
 
     char * path = "serialized_list.bin";
 
-    
+    BOOST_CHECK(list.Head() != nullptr);
+    BOOST_CHECK_EQUAL(list.Head()->rand, list.Tail());
+    BOOST_CHECK_EQUAL(list.Tail()->rand, list.Head());
+    BOOST_CHECK_EQUAL(list.Head()->next->rand, nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(list_serialize_deserialize)
@@ -55,4 +61,8 @@ BOOST_AUTO_TEST_CASE(list_serialize_deserialize)
     BOOST_CHECK_EQUAL(in_list.Head()->data, out_list.Head()->data);
     BOOST_CHECK_EQUAL(in_list.Head()->next->data, out_list.Head()->next->data);
     BOOST_CHECK_EQUAL(in_list.Tail()->data, out_list.Tail()->data);
+
+    BOOST_CHECK_EQUAL(in_list.Head()->rand, in_list.Tail());
+    BOOST_CHECK_EQUAL(in_list.Tail()->rand, in_list.Head());
+    BOOST_CHECK_EQUAL(in_list.Head()->next->rand, nullptr);
 }
