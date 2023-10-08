@@ -13,9 +13,43 @@ struct ListNode
 class List 
 {
 public:
+
+	void Serialize(FILE * file) // сохранение списка в файл, файл открыт с помощью `fopen(path, "wb")`
+	{
+		ListNode * node = head;
+		while (node != nullptr)
+		{
+			size_t data_size = node->data.size();
+			fwrite(&data_size, sizeof(size_t), 1, file);
+			fwrite(node->data.c_str(), sizeof(char), data_size, file);
+			node = node->next;
+		}
+	}
+
+	void Deserialize(FILE * file) // восстановление списка из файла, файл открыт с помощью `fopen(path, "rb")`
+	{
+		size_t data_size;
+
+		while (fread(&data_size, sizeof(size_t), 1, file) == 1)
+		{
+			std::string data;
+			data.resize(data_size);
+
+			fread(&data[0], sizeof(char), data_size, file);
+			Append(data);
+		}
+	}
+
+
 	~List()
 	{
 		Clear();
+	}
+
+	int Count() const
+	{
+		return
+			count;
 	}
 
 	ListNode * Head() const
@@ -30,10 +64,10 @@ public:
 
 	void Clear()
 	{
-		ListNode * node = head;
+		ListNode* node = head;
 		while (node != nullptr)
 		{
-			ListNode * del = node;
+			ListNode* del = node;
 			node = node->next;
 			delete del;
 		}
@@ -59,16 +93,6 @@ public:
 		tail = node;
 		++count;
 		return node;
-	}
-	
-	void Serialize(FILE * file) // сохранение списка в файл, файл открыт с помощью `fopen(path, "wb")`
-	{
-
-	}
-
-	void Deserialize(FILE * file) // восстановление списка из файла, файл открыт с помощью `fopen(path, "rb")`
-	{
-
 	}
 	
 	
